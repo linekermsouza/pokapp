@@ -23,7 +23,8 @@
             android:name=".service.LoadPokemonService"
             android:exported="false" />
 
-        <activity android:name=".PokemonDataActivity"></activity>
+        <activity android:name=".PokemonDataActivity" />
+        <activity android:name=".PokemonNotificationActivity"></activity>
     </application>
 
 </manifest>

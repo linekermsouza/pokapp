@@ -1,20 +1,13 @@
 package br.com.uarini.pogapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import br.com.uarini.pogapp.cloud.ApiPokemon;
-import br.com.uarini.pogapp.cloud.CloudPokemon;
-import br.com.uarini.pogapp.db.DaoMaster;
 import br.com.uarini.pogapp.db.Pokemon;
 import br.com.uarini.pogapp.fragment.ListPokemonFragment;
+import br.com.uarini.pogapp.fragment.PokemonDataBottomSheetDialogFragment;
+import br.com.uarini.pogapp.notification.MyNotificationManager;
 import br.com.uarini.pogapp.service.LoadPokemonService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements ListPokemonFragment.OnListFragmentInteractionListener {
 
@@ -26,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
 
         setContentView(R.layout.activity_main);
 
+        MyNotificationManager.pin(this);
         this.getSupportFragmentManager().beginTransaction().replace(R.id.content, new ListPokemonFragment()).commit();
 
     }
@@ -33,8 +27,16 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
 
     @Override
     public void onListFragmentInteraction(Pokemon item) {
-        final Intent intent = new Intent(this, PokemonDataActivity.class);
-        intent.putExtra(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
-        this.startActivity(intent);
+        //final Intent intent = new Intent(this, PokemonDataActivity.class);
+        //intent.putExtra(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
+        //this.startActivity(intent);
+
+        final Bundle mBundle = new Bundle();
+        mBundle.putInt(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
+
+
+        PokemonDataBottomSheetDialogFragment bottomSheetDialogFragment = new PokemonDataBottomSheetDialogFragment();
+        bottomSheetDialogFragment.setArguments(mBundle);
+        bottomSheetDialogFragment.show(getSupportFragmentManager(), "--fragment");
     }
 }

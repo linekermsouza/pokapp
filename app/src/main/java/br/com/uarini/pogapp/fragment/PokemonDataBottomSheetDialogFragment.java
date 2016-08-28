@@ -1,0 +1,65 @@
+package br.com.uarini.pogapp.fragment;
+
+import android.app.Dialog;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.design.widget.CoordinatorLayout;
+import android.view.View;
+
+import br.com.uarini.pogapp.R;
+import br.com.uarini.pogapp.view.ManagerPokemonData;
+
+/**
+ * Created by marcos on 28/08/16.
+ */
+public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragment {
+
+    private ManagerPokemonData managerPokemonData  = new ManagerPokemonData();
+
+    private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
+
+        @Override
+        public void onStateChanged(@NonNull View bottomSheet, int newState) {
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                dismiss();
+            }
+
+        }
+
+        @Override
+        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+        }
+    };
+
+    @Override
+    public void setupDialog(Dialog dialog, int style) {
+        super.setupDialog(dialog, style);
+        View contentView = View.inflate(getContext(), R.layout.fragment_pokemon_data, null);
+        dialog.setContentView(contentView);
+
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
+        CoordinatorLayout.Behavior behavior = params.getBehavior();
+
+        if( behavior != null && behavior instanceof BottomSheetBehavior ) {
+            ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
+        }
+
+        this.managerPokemonData.setupView(contentView, true);
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.managerPokemonData.onCreate(savedInstanceState, this.getArguments());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.managerPokemonData.storageRecord();
+    }
+
+}
