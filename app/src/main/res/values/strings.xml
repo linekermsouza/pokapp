@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">POGApp</string>
+    <string name="app_name">PGApp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pokemon_not_found_from_notification">Pokemon não encontrado.</string>
+    <string name="result_02">Dá para evoluir quantos?:</string>
+    <string name="result01">Qtd. candy após transferir?:</string>
 </resources>

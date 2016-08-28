@@ -1,6 +1,7 @@
 package br.com.uarini.pogapp.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -8,6 +9,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
 
+import br.com.uarini.pogapp.PokemonNotificationActivity;
 import br.com.uarini.pogapp.R;
 import br.com.uarini.pogapp.view.ManagerPokemonData;
 
@@ -62,4 +64,11 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
         this.managerPokemonData.storageRecord();
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if ( getActivity() instanceof PokemonNotificationActivity ) {
+            getActivity().finish();
+        }
+    }
 }

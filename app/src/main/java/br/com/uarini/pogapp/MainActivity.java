@@ -8,6 +8,7 @@ import br.com.uarini.pogapp.fragment.ListPokemonFragment;
 import br.com.uarini.pogapp.fragment.PokemonDataBottomSheetDialogFragment;
 import br.com.uarini.pogapp.notification.MyNotificationManager;
 import br.com.uarini.pogapp.service.LoadPokemonService;
+import br.com.uarini.pogapp.uitls.PokemonPreferences;
 
 public class MainActivity extends AppCompatActivity implements ListPokemonFragment.OnListFragmentInteractionListener {
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
         //intent.putExtra(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
         //this.startActivity(intent);
 
+        PokemonPreferences.putLastPokemon(this, item.getNumber());
         final Bundle mBundle = new Bundle();
         mBundle.putInt(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
 
