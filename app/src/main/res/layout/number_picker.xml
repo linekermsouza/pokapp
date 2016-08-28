@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<br.com.uarini.pogapp.view.MyNumberPicker xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/activity_pokemon_data">
+
+    <ImageButton
+        android:tint="#f44336"
+        android:padding="2dp"
+        android:src="@drawable/ic_remove_circle_black_24dp"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ib_rm" />
+
+    <TextView
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:minWidth="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:text="001"
+        android:id="@+id/tv_value" />
+
+    <ImageButton
+        android:tint="#2196F3"
+        android:padding="2dp"
+        android:src="@drawable/ic_add_circle_black_24dp"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ib_add" />
+</br.com.uarini.pogapp.view.MyNumberPicker>
+
+
+    
