@@ -24,7 +24,8 @@
             android:exported="false" />
 
         <activity android:name=".PokemonDataActivity" />
-        <activity android:name=".PokemonNotificationActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity android:name=".PokemonNotificationActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"></activity>
     </application>
 
 </manifest>
