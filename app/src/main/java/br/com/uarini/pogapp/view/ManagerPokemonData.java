@@ -1,9 +1,12 @@
 package br.com.uarini.pogapp.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import br.com.uarini.pogapp.MainActivity;
 import br.com.uarini.pogapp.PokemonApplication;
 import br.com.uarini.pogapp.PokemonDataActivity;
 import br.com.uarini.pogapp.R;
@@ -16,15 +19,14 @@ import br.com.uarini.pogapp.db.PokemonDataDao;
 /**
  * Created by marcos on 28/08/16.
  */
-public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener {
+public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener, View.OnClickListener {
     private Pokemon pokemon;
     private PokemonData pokemonData;
     private MyNumberPicker npQtd;
-    private MyNumberPicker npQtdCandy;
     private MyNumberPicker npQtdCandyEvolve;
     private MyNumberPicker npQtdTransfer;
 
-    private TextView tvResult01, tvResult02;
+    private TextView tvResult01, tvResult02, tvPkName;
 
     public void onCreate(Bundle savedInstanceState, Bundle args){
         if ( args == null ) {
@@ -41,29 +43,27 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     }
 
     public void setupView(View view, boolean isFromDialog) {
-
+        this.tvPkName = (TextView) view.findViewById(R.id.tvPokemon);
+        this.tvPkName.setOnClickListener(this);
         if ( isFromDialog ) {
-            ((TextView) view.findViewById(R.id.tvPokemon)).setText(this.pokemon.getName());
+            this.tvPkName.setText(this.pokemon.getName());
         } else {
-            view.findViewById(R.id.tvPokemon).setVisibility(View.GONE);
+            this.tvPkName.setVisibility(View.GONE);
         }
         this.tvResult01 = (TextView) view.findViewById(R.id.tvResult01);
         this.tvResult02 = (TextView) view.findViewById(R.id.tvResult02);
 
         this.npQtd = (MyNumberPicker) view.findViewById(R.id.npQtd);
-        this.npQtdCandy = (MyNumberPicker) view.findViewById(R.id.npQtdCandy);
         this.npQtdCandyEvolve = (MyNumberPicker) view.findViewById(R.id.npQtdCandyEnvolve);
         this.npQtdTransfer = (MyNumberPicker) view.findViewById(R.id.npQtdTransfer);
 
         this.npQtd.init();
-        this.npQtdCandy.init();
         this.npQtdCandyEvolve.init();
         this.npQtdTransfer.init();
 
         this.npQtd.setValueListener(this);
         this.npQtdTransfer.setValueListener(this);
         this.npQtdCandyEvolve.setValueListener(this);
-        this.npQtdCandy.setValueListener(this);
 
         this.bindValues();
 
@@ -71,7 +71,6 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     }
 
     private void bindValues(){
-        this.npQtdCandy.setValue(this.pokemonData.getQtdCandy());
         this.npQtd.setValue(this.pokemonData.getQtd());
         this.npQtdCandyEvolve.setValue(this.pokemonData.getQtdCandyEvolve());
         this.npQtdTransfer.setValue(this.pokemonData.getTransfer());
@@ -81,8 +80,6 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     public void onValue(MyNumberPicker picker, int value) {
         if (picker.getId() == this.npQtd.getId() ){
             this.pokemonData.setQtd(value);
-        } else if (picker.getId() == this.npQtdCandy.getId() ){
-            this.pokemonData.setQtdCandy(value);
         } else if (picker.getId() == this.npQtdCandyEvolve.getId() ){
             this.pokemonData.setQtdCandyEvolve(value);
         } else if (picker.getId() == this.npQtdTransfer.getId() ){
@@ -91,19 +88,34 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         this.calcule();
     }
 
-    private void calcule(){
-        final Integer result01 = this.pokemonData.getTransfer() + this.pokemonData.getQtdCandy();
-        this.tvResult01.setText(result01.toString());
-
-        if ( this.pokemonData.getQtdCandyEvolve() == 0 ) {
-            this.tvResult02.setText("0");
-        } else {
-            Integer result02 = result01 / this.pokemonData.getQtdCandyEvolve();
-            if (result02 < 0) {
-                result02 = 0;
-            }
-            this.tvResult02.setText(result02.toString());
+    @Override
+    public boolean onValueValid(MyNumberPicker picker, int value) {
+        if (picker.getId() == this.npQtdTransfer.getId() && this.calculeQtdCandyAposTransferir(value) > this.pokemonData.getQtd() ){
+            return false;
         }
+        return true;
+    }
+
+    private void calcule(){
+        int transfer = this.calculeQtdCandyAposTransferir(this.pokemonData.getTransfer());
+        int evolve = this.calculeDaPraEvoluir(transfer, this.pokemonData.getQtdCandyEvolve());
+        this.tvResult01.setText(String.valueOf(transfer));
+        this.tvResult02.setText(String.valueOf(evolve));
+    }
+
+    private int calculeDaPraEvoluir(int transfer, int qtdCandyEvolve){
+        if ( qtdCandyEvolve == 0 ) {
+            return 0;
+        }
+        Integer result02 = transfer / qtdCandyEvolve;
+        if (result02 < 0) {
+            result02 = 0;
+        }
+        return result02;
+    }
+
+    private Integer calculeQtdCandyAposTransferir(int transfer){
+        return transfer + this.pokemonData.getQtdCandy();
     }
 
     public void storageRecord(){
@@ -113,5 +125,31 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if ( view.getId() == this.tvPkName.getId() ) {
+            final Intent intent = new Intent(view.getContext(), MainActivity.class);
+            intent.putExtra("return", true);
+            view.getContext().startActivity(intent);
+        }
+    }
+
+    private void calculeSugerir(){
+        int qtdTransferir = 0;
+        int qtdEvoluir = (int)(this.pokemonData.getQtdCandy() / this.pokemonData.getQtdCandyEvolve());
+        int qtdTranferir = 0;
+        while ( (qtdTransferir+qtdEvoluir) < this.pokemonData.getQtd()){
+            qtdTranferir++;
+            if ((qtdTransferir + qtdEvoluir) >= this.pokemonData.getQtd()){
+                break;
+            }
+            qtdEvoluir = (int) ( (this.pokemonData.getQtdCandy() + qtdTranferir) / this.pokemonData.getQtdCandyEvolve());
+        }
+
+        this.tvResult01.setText(String.valueOf(qtdTransferir));
+        this.tvResult02.setText(String.valueOf(qtdEvoluir));
+
     }
 }

@@ -28,10 +28,9 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
 
     @Override
     public void onListFragmentInteraction(Pokemon item) {
-        //final Intent intent = new Intent(this, PokemonDataActivity.class);
-        //intent.putExtra(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
-        //this.startActivity(intent);
-
+        if (this.getIntent().hasExtra("return")){
+            this.finish();
+        }
         PokemonPreferences.putLastPokemon(this, item.getNumber());
         final Bundle mBundle = new Bundle();
         mBundle.putInt(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
