@@ -1,14 +1,13 @@
 package br.com.uarini.pogapp.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import br.com.uarini.pogapp.MainActivity;
 import br.com.uarini.pogapp.PokemonApplication;
-import br.com.uarini.pogapp.PokemonDataActivity;
 import br.com.uarini.pogapp.R;
 import br.com.uarini.pogapp.db.DaoSession;
 import br.com.uarini.pogapp.db.Pokemon;
@@ -28,11 +27,22 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
 
     private TextView tvResult01, tvResult02, tvPkName;
 
+    public Activity activity;
+
+    public static final String ARG_PK_NUMBER = "pk_number";
+
+    public static final String ARG_RETURN_SELECTED = "is_return";
+
     public void onCreate(Bundle savedInstanceState, Bundle args){
         if ( args == null ) {
             return;
         }
-        final Integer pkNumber = args.getInt(PokemonDataActivity.ARG_PK_NUMBER);
+        final Integer pkNumber = args.getInt(ManagerPokemonData.ARG_PK_NUMBER);
+
+        this.loadPokemon(pkNumber);
+    }
+
+    private void loadPokemon(Integer pkNumber) {
         final DaoSession session = PokemonApplication.instance.getDaoSession();
         this.pokemon = session.getPokemonDao().queryBuilder().where(PokemonDao.Properties.Number.eq(pkNumber)).unique();
         this.pokemonData =session.getPokemonDataDao().queryBuilder().where(PokemonDataDao.Properties.PokemonNumber.eq(pkNumber)).unique();
@@ -131,8 +141,8 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     public void onClick(View view) {
         if ( view.getId() == this.tvPkName.getId() ) {
             final Intent intent = new Intent(view.getContext(), MainActivity.class);
-            intent.putExtra("return", true);
-            view.getContext().startActivity(intent);
+            intent.putExtra(ARG_RETURN_SELECTED, true);
+            this.activity.startActivityForResult(intent, 1);
         }
     }
 
@@ -151,5 +161,15 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         this.tvResult01.setText(String.valueOf(qtdTransferir));
         this.tvResult02.setText(String.valueOf(qtdEvoluir));
 
+    }
+
+    public void onNewPokemonSelected(Bundle mBundle){
+        final Integer pkNumber = mBundle.getInt(ManagerPokemonData.ARG_PK_NUMBER);
+        if ( this.pokemon.getNumber() == pkNumber ){
+            return;
+        }
+        this.loadPokemon(pkNumber);
+        this.bindValues();
+        this.calcule();
     }
 }

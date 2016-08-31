@@ -1,7 +1,9 @@
 package br.com.uarini.pogapp.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -53,6 +55,12 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        this.managerPokemonData.activity = this.getActivity();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.managerPokemonData.onCreate(savedInstanceState, this.getArguments());
@@ -71,4 +79,14 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
             getActivity().finish();
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == Activity.RESULT_OK ){
+            this.managerPokemonData.onNewPokemonSelected(data.getExtras());
+        }
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package br.com.uarini.pogapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import br.com.uarini.pogapp.fragment.PokemonDataBottomSheetDialogFragment;
 import br.com.uarini.pogapp.notification.MyNotificationManager;
 import br.com.uarini.pogapp.service.LoadPokemonService;
 import br.com.uarini.pogapp.uitls.PokemonPreferences;
+import br.com.uarini.pogapp.view.ManagerPokemonData;
 
 public class MainActivity extends AppCompatActivity implements ListPokemonFragment.OnListFragmentInteractionListener {
 
@@ -28,12 +30,17 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
 
     @Override
     public void onListFragmentInteraction(Pokemon item) {
-        if (this.getIntent().hasExtra("return")){
+        if (this.getIntent().hasExtra(ManagerPokemonData.ARG_RETURN_SELECTED)){
+            final Intent mBundle = new Intent();
+            mBundle.putExtra(ManagerPokemonData.ARG_PK_NUMBER, item.getNumber());
+            this.setResult(RESULT_OK, mBundle);
             this.finish();
+            return;
         }
+
         PokemonPreferences.putLastPokemon(this, item.getNumber());
         final Bundle mBundle = new Bundle();
-        mBundle.putInt(PokemonDataActivity.ARG_PK_NUMBER, item.getNumber());
+        mBundle.putInt(ManagerPokemonData.ARG_PK_NUMBER, item.getNumber());
 
 
         PokemonDataBottomSheetDialogFragment bottomSheetDialogFragment = new PokemonDataBottomSheetDialogFragment();
