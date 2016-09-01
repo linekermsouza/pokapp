@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:showIn="@layout/activity_pokemon_data">
+    android:layout_height="wrap_content">
 
-    <ImageButton
-        android:tint="#f44336"
+    <android.support.v7.widget.AppCompatButton
         android:padding="2dp"
-        android:src="@drawable/ic_remove_circle_black_24dp"
-        android:background="@android:color/transparent"
+
+        style="@style/Widget.AppCompat.Button.Small"
+        android:textColor="@android:color/white"
+        android:text="-"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ib_rm" />
@@ -28,11 +29,12 @@
         android:text="001"
         android:id="@+id/tv_value" />
 
-    <ImageButton
-        android:tint="#2196F3"
+    <android.support.v7.widget.AppCompatButton
+        style="@style/Widget.AppCompat.Button.Small"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
         android:padding="2dp"
-        android:src="@drawable/ic_add_circle_black_24dp"
-        android:background="@android:color/transparent"
+        android:text="+"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ib_add" />

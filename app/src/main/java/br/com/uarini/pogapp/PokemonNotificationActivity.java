@@ -1,16 +1,14 @@
 package br.com.uarini.pogapp;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import br.com.uarini.pogapp.db.Pokemon;
 import br.com.uarini.pogapp.fragment.PokemonDataBottomSheetDialogFragment;
-import br.com.uarini.pogapp.fragment.PokemonDataFragment;
 import br.com.uarini.pogapp.service.PokemonService;
 import br.com.uarini.pogapp.uitls.PokemonPreferences;
+import br.com.uarini.pogapp.view.ManagerPokemonData;
 
 public class PokemonNotificationActivity extends FragmentActivity {
 
@@ -31,7 +29,7 @@ public class PokemonNotificationActivity extends FragmentActivity {
             Toast.makeText(this, R.string.pokemon_not_found_from_notification, Toast.LENGTH_SHORT).show();
         } else {
             final Bundle mBundle = new Bundle();
-            mBundle.putInt(PokemonDataActivity.ARG_PK_NUMBER, pokemon.getNumber());
+            mBundle.putInt(ManagerPokemonData.ARG_PK_NUMBER, pokemon.getNumber());
 
 
             PokemonDataBottomSheetDialogFragment bottomSheetDialogFragment = new PokemonDataBottomSheetDialogFragment();

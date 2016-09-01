@@ -1,7 +1,9 @@
 package br.com.uarini.pogapp.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -9,6 +11,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
 
+import br.com.uarini.pogapp.MainActivity;
 import br.com.uarini.pogapp.PokemonNotificationActivity;
 import br.com.uarini.pogapp.R;
 import br.com.uarini.pogapp.view.ManagerPokemonData;
@@ -16,7 +19,7 @@ import br.com.uarini.pogapp.view.ManagerPokemonData;
 /**
  * Created by marcos on 28/08/16.
  */
-public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragment {
+public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private ManagerPokemonData managerPokemonData  = new ManagerPokemonData();
 
@@ -48,7 +51,8 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
             ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
         }
 
-        this.managerPokemonData.setupView(contentView, true);
+        this.managerPokemonData.setupView(contentView, getActivity() instanceof  PokemonNotificationActivity);
+        this.managerPokemonData.setOnClickPokemonName(this);
 
     }
 
@@ -70,5 +74,21 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
         if ( getActivity() instanceof PokemonNotificationActivity ) {
             getActivity().finish();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == Activity.RESULT_OK ){
+            this.managerPokemonData.onNewPokemonSelected(data.getExtras());
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        final Intent intent = new Intent(view.getContext(), MainActivity.class);
+        intent.putExtra(ManagerPokemonData.ARG_RETURN_SELECTED, true);
+        this.getActivity().startActivityFromFragment(this, intent, 1);
     }
 }

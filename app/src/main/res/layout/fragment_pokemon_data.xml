@@ -35,6 +35,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -151,5 +152,6 @@
             />
 
     </RelativeLayout>
+
 
 </LinearLayout>

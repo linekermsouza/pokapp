@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import br.com.uarini.pogapp.PokemonDataActivity;
 import br.com.uarini.pogapp.R;
 import br.com.uarini.pogapp.view.ManagerPokemonData;
 
@@ -21,7 +20,7 @@ public class PokemonDataFragment extends Fragment {
     public static PokemonDataFragment newInstance(Integer pkNumber) {
         PokemonDataFragment fragment = new PokemonDataFragment();
         Bundle args = new Bundle();
-        args.putInt(PokemonDataActivity.ARG_PK_NUMBER, pkNumber);
+        args.putInt(ManagerPokemonData.ARG_PK_NUMBER, pkNumber);
         fragment.setArguments(args);
         return fragment;
     }
