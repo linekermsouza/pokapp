@@ -11,6 +11,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.View;
 
+import br.com.uarini.pogapp.MainActivity;
 import br.com.uarini.pogapp.PokemonNotificationActivity;
 import br.com.uarini.pogapp.R;
 import br.com.uarini.pogapp.view.ManagerPokemonData;
@@ -18,7 +19,7 @@ import br.com.uarini.pogapp.view.ManagerPokemonData;
 /**
  * Created by marcos on 28/08/16.
  */
-public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragment {
+public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private ManagerPokemonData managerPokemonData  = new ManagerPokemonData();
 
@@ -50,14 +51,9 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
             ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
         }
 
-        this.managerPokemonData.setupView(contentView, true);
+        this.managerPokemonData.setupView(contentView, getActivity() instanceof  PokemonNotificationActivity);
+        this.managerPokemonData.setOnClickPokemonName(this);
 
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        this.managerPokemonData.activity = this.getActivity();
     }
 
     @Override
@@ -89,4 +85,10 @@ public class PokemonDataBottomSheetDialogFragment extends BottomSheetDialogFragm
 
     }
 
+    @Override
+    public void onClick(View view) {
+        final Intent intent = new Intent(view.getContext(), MainActivity.class);
+        intent.putExtra(ManagerPokemonData.ARG_RETURN_SELECTED, true);
+        this.getActivity().startActivityFromFragment(this, intent, 1);
+    }
 }

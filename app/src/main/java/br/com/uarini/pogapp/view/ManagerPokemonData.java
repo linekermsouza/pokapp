@@ -14,6 +14,7 @@ import br.com.uarini.pogapp.db.Pokemon;
 import br.com.uarini.pogapp.db.PokemonDao;
 import br.com.uarini.pogapp.db.PokemonData;
 import br.com.uarini.pogapp.db.PokemonDataDao;
+import br.com.uarini.pogapp.fragment.PokemonDataBottomSheetDialogFragment;
 
 /**
  * Created by marcos on 28/08/16.
@@ -27,11 +28,11 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
 
     private TextView tvResult01, tvResult02, tvPkName;
 
-    public Activity activity;
-
     public static final String ARG_PK_NUMBER = "pk_number";
 
     public static final String ARG_RETURN_SELECTED = "is_return";
+
+    private View.OnClickListener onClickPokemonNameListener;
 
     public void onCreate(Bundle savedInstanceState, Bundle args){
         if ( args == null ) {
@@ -56,7 +57,7 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         this.tvPkName = (TextView) view.findViewById(R.id.tvPokemon);
         this.tvPkName.setOnClickListener(this);
         if ( isFromDialog ) {
-            this.tvPkName.setText(this.pokemon.getName());
+            this.setPokemonName();
         } else {
             this.tvPkName.setVisibility(View.GONE);
         }
@@ -78,6 +79,10 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         this.bindValues();
 
         this.calcule();
+    }
+
+    private void setPokemonName() {
+        this.tvPkName.setText(this.pokemon.getName());
     }
 
     private void bindValues(){
@@ -140,9 +145,8 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     @Override
     public void onClick(View view) {
         if ( view.getId() == this.tvPkName.getId() ) {
-            final Intent intent = new Intent(view.getContext(), MainActivity.class);
-            intent.putExtra(ARG_RETURN_SELECTED, true);
-            this.activity.startActivityForResult(intent, 1);
+            this.onClickPokemonNameListener.onClick(view);
+
         }
     }
 
@@ -169,7 +173,12 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
             return;
         }
         this.loadPokemon(pkNumber);
+        this.setPokemonName();
         this.bindValues();
         this.calcule();
+    }
+
+    public void setOnClickPokemonName(View.OnClickListener onClickPokemonName) {
+        this.onClickPokemonNameListener = onClickPokemonName;
     }
 }
