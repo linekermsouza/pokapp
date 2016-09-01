@@ -57,22 +57,27 @@ public class MyNumberPicker extends LinearLayout implements View.OnClickListener
             if ( this.value == 0 ){
                 return;
             }
-            this.value --;
-            this.updateViewValue();
-            this.notifyValueChanged();
+
+            if (this.notifyValueChanged(value-1)) {
+                this.value--;
+                this.updateViewValue();
+            }
         } else if ( view.getId() == ADD ){
             if (this.value == 1000)
                 return;
-            this.value ++;
-            this.updateViewValue();
-            this.notifyValueChanged();
+            if (this.notifyValueChanged(value+1)) {
+                this.value++;
+                this.updateViewValue();
+            }
+
         }
     }
 
-    private void notifyValueChanged(){
+    private boolean notifyValueChanged(int newValue){
         if ( this.valueListener != null ){
-            this.valueListener.onValue(this, this.value);
+            return this.valueListener.onValue(this, newValue);
         }
+        return false;
     }
 
     public int getValue() {
@@ -92,6 +97,6 @@ public class MyNumberPicker extends LinearLayout implements View.OnClickListener
     }
 
     public static interface OnValueChangedListener {
-        void onValue(MyNumberPicker picker, int value);
+        boolean onValue(MyNumberPicker picker, int value);
     }
 }

@@ -16,7 +16,7 @@ import br.com.uarini.pogapp.db.PokemonDataDao;
 /**
  * Created by marcos on 28/08/16.
  */
-public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener {
+public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener, View.OnClickListener {
     private Pokemon pokemon;
     private PokemonData pokemonData;
     private MyNumberPicker npQtd;
@@ -24,7 +24,7 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     private MyNumberPicker npQtdCandyEvolve;
     private MyNumberPicker npQtdTransfer;
 
-    private TextView tvResult01, tvResult02;
+    private TextView tvQttCandyAfterTransfer, tvMaxQttOfEvolutions;
 
     public void onCreate(Bundle savedInstanceState, Bundle args){
         if ( args == null ) {
@@ -47,13 +47,15 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         } else {
             view.findViewById(R.id.tvPokemon).setVisibility(View.GONE);
         }
-        this.tvResult01 = (TextView) view.findViewById(R.id.tvResult01);
-        this.tvResult02 = (TextView) view.findViewById(R.id.tvResult02);
+        this.tvQttCandyAfterTransfer = (TextView) view.findViewById(R.id.tvResult01);
+        this.tvMaxQttOfEvolutions = (TextView) view.findViewById(R.id.tvResult02);
 
         this.npQtd = (MyNumberPicker) view.findViewById(R.id.npQtd);
         this.npQtdCandy = (MyNumberPicker) view.findViewById(R.id.npQtdCandy);
         this.npQtdCandyEvolve = (MyNumberPicker) view.findViewById(R.id.npQtdCandyEnvolve);
         this.npQtdTransfer = (MyNumberPicker) view.findViewById(R.id.npQtdTransfer);
+        View btnBestEfficient = view.findViewById(R.id.btn_best_efficient);
+        btnBestEfficient.setOnClickListener(this);
 
         this.npQtd.init();
         this.npQtdCandy.init();
@@ -78,31 +80,41 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     }
 
     @Override
-    public void onValue(MyNumberPicker picker, int value) {
-        if (picker.getId() == this.npQtd.getId() ){
+    public boolean onValue(MyNumberPicker picker, int value) {
+        if (picker.getId() == this.npQtd.getId() ){//Quantity of pokemons
             this.pokemonData.setQtd(value);
-        } else if (picker.getId() == this.npQtdCandy.getId() ){
+        } else if (picker.getId() == this.npQtdCandy.getId() ){//Quantity of candies
             this.pokemonData.setQtdCandy(value);
-        } else if (picker.getId() == this.npQtdCandyEvolve.getId() ){
+        } else if (picker.getId() == this.npQtdCandyEvolve.getId() ){//TODO: retrieve from json
             this.pokemonData.setQtdCandyEvolve(value);
-        } else if (picker.getId() == this.npQtdTransfer.getId() ){
-            this.pokemonData.setTransfer(value);
+        } else if (picker.getId() == this.npQtdTransfer.getId() ){//Quantity to transfer
+            if (value <= this.pokemonData.getQtd() ) {
+                this.pokemonData.setTransfer(value);
+            }else{
+                return  false;
+            }
         }
         this.calcule();
+
+        return true;
     }
 
     private void calcule(){
-        final Integer result01 = this.pokemonData.getTransfer() + this.pokemonData.getQtdCandy();
-        this.tvResult01.setText(result01.toString());
+        final Integer qttCandyAfterTransfer = this.pokemonData.getTransfer() + this.pokemonData.getQtdCandy();
+        this.tvQttCandyAfterTransfer.setText(qttCandyAfterTransfer.toString());
 
         if ( this.pokemonData.getQtdCandyEvolve() == 0 ) {
-            this.tvResult02.setText("0");
+            this.tvMaxQttOfEvolutions.setText("0");
         } else {
-            Integer result02 = result01 / this.pokemonData.getQtdCandyEvolve();
-            if (result02 < 0) {
-                result02 = 0;
+            Integer maxQttOfEvolutions = qttCandyAfterTransfer / this.pokemonData.getQtdCandyEvolve();
+            if (maxQttOfEvolutions < 0) {
+                maxQttOfEvolutions = 0;
             }
-            this.tvResult02.setText(result02.toString());
+            if (maxQttOfEvolutions > this.pokemonData.getQtd() - this.pokemonData.getTransfer()){
+                maxQttOfEvolutions = this.pokemonData.getQtd() - this.pokemonData.getTransfer();
+            }
+
+            this.tvMaxQttOfEvolutions.setText(maxQttOfEvolutions.toString());
         }
     }
 
@@ -113,5 +125,29 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_best_efficient){
+            calculeBestEfficient();
+        }
+    }
+
+    private void calculeBestEfficient() {
+        int qttTransfer = 0;
+        int qttEvolve = this.pokemonData.getQtdCandy() / this.pokemonData.getQtdCandyEvolve();
+        while ( (qttTransfer+qttEvolve) < this.pokemonData.getQtd()){
+            qttTransfer++;
+            if (qttTransfer+qttEvolve >= this.pokemonData.getQtd()){
+                break;
+            }
+            qttEvolve = (this.pokemonData.getQtdCandy()+qttTransfer) / this.pokemonData.getQtdCandyEvolve();
+        }
+
+        this.pokemonData.setTransfer(qttTransfer);
+        this.npQtdTransfer.setValue(this.pokemonData.getTransfer());
+        calcule();
+
     }
 }
