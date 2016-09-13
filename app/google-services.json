@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "794127134123",
+    "firebase_url": "https://pgapp-5bc17.firebaseio.com",
+    "project_id": "pgapp-5bc17",
+    "storage_bucket": "pgapp-5bc17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794127134123:android:5301c890d1694624",
+        "android_client_info": {
+          "package_name": "br.com.uarini.pogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794127134123-j0gmia6j7qngib4ahdi5hahsccd8cgj0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.uarini.pogapp",
+            "certificate_hash": "851872E4A545526581875FC297CBD106F3D8C5F5"
+          }
+        },
+        {
+          "client_id": "794127134123-dm8fj45crjkif07cv01janvbq0kko5qg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.uarini.pogapp",
+            "certificate_hash": "F1A7271F4B2DBE175645D6755311744A44DBAE27"
+          }
+        },
+        {
+          "client_id": "794127134123-pkbf5ceqrp8du04c34q9alcmkrmmlakn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQbLCqitQ_LKeDxCpFowsgxz00TcyUaQs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

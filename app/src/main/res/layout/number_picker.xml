@@ -5,7 +5,7 @@
     android:gravity="right"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:padding="2dp"
         style="@style/Widget.AppCompat.Button.Small"
         android:textColor="#56C8C6"
@@ -23,7 +23,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:minWidth="30dp"
-        android:layout_width="60dp"
+        android:layout_width="55dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/colorPrimary"
@@ -31,7 +31,7 @@
         android:textSize="30dp"
         android:id="@+id/tv_value" />
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         style="@style/Widget.AppCompat.Button.Small"
         android:textColor="#56C8C6"
         android:textSize="40dp"

@@ -3,6 +3,12 @@ package br.com.uarini.pogapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import br.com.uarini.pogapp.db.Pokemon;
 import br.com.uarini.pogapp.fragment.ListPokemonFragment;
@@ -22,8 +28,43 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
 
         setContentView(R.layout.activity_main);
 
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4312492329462049~3300965018");
+
         MyNotificationManager.pin(this);
         this.getSupportFragmentManager().beginTransaction().replace(R.id.content, new ListPokemonFragment()).commit();
+
+        final AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                mAdView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+            }
+        });
+        mAdView.loadAd(adRequest);
+
 
     }
 
