@@ -7,13 +7,14 @@
 
     <android.support.v7.widget.AppCompatButton
         android:padding="2dp"
-
         style="@style/Widget.AppCompat.Button.Small"
-        android:textColor="@android:color/white"
+        android:textColor="#56C8C6"
         android:text="-"
-        android:textSize="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:background="@drawable/button_bg_round"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:id="@+id/ib_rm" />
 
     <TextView
@@ -22,21 +23,24 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:minWidth="30dp"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-
-        android:text="001"
+        android:textColor="@color/colorPrimary"
+        android:text="999"
+        android:textSize="30dp"
         android:id="@+id/tv_value" />
 
     <android.support.v7.widget.AppCompatButton
         style="@style/Widget.AppCompat.Button.Small"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textColor="#56C8C6"
+        android:textSize="40dp"
         android:padding="2dp"
         android:text="+"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg_round"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:id="@+id/ib_add" />
 </br.com.uarini.pogapp.view.MyNumberPicker>
 

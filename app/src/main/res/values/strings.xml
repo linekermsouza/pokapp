@@ -8,7 +8,7 @@
     <string name="result01">Qtd candy após transferir:</string>
     <string name="type_pokemon_name">Entre com o nome do Pokemon</string>
     <string name="best_efficient">Calcular Evoluçoes</string>
-    <string name="qtt_pokemon">Quantidade de pokemon:</string>
-    <string name="qtt_candy">Quantidade de Candy:</string>
+    <string name="qtt_pokemon">Qtd. de pokemon:</string>
+    <string name="qtt_candy">Qtd. de Candy:</string>
     <string name="tranferir_antes">Transferir agora:</string>
 </resources>

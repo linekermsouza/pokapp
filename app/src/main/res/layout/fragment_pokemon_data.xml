@@ -12,11 +12,23 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvPokemon"
-        android:layout_alignParentRight="true"/>
+        android:text="asdfasd"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@android:drawable/ic_menu_edit" />
+
+    <View
+        android:id="@+id/view_separator"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tvPokemon"
+        android:layout_height="2dp"
+        android:background="#A2B6B8"/>
 
     <TextView
         android:id="@+id/tvQttPokemon"
-        android:layout_below="@+id/tvPokemon"
+        android:layout_below="@+id/view_separator"
         android:layout_marginTop="5dp"
         android:paddingTop="15dp"
         android:textColor="@color/colorPrimary"
@@ -58,61 +70,76 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvQttTranfer"
-        android:textColor="@color/colorPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/result_bg"
+        android:layout_below="@+id/tvQtdCandy"
+        android:padding="10dp"
         android:layout_marginTop="35dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tranferir_antes"
-        android:textSize="25dp"
-        android:layout_below="@+id/tvQtdCandy" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="0"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/tvResultTransfer"
-        android:layout_toLeftOf="@+id/tvQttTranfer"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tvQttTranfer"
-        android:textSize="25dp"
-        />
+        <TextView
+            android:id="@+id/tvQttTranfer"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/tranferir_antes" />
 
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tvQttTranfer"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="23dp"
+            android:layout_alignTop="@+id/tvQttTranfer">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:gravity="center_horizontal"
+                android:text="999"
+                android:textSize="30dp"
+                android:id="@+id/tvResultTransfer"/>
+        </LinearLayout>
 
-    <TextView
-        android:layout_marginTop="15dp"
-        android:id="@+id/tvTitleResult2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/result_02"
-        android:layout_below="@+id/tvQttTranfer"
-        android:textColor="@color/colorPrimary"
-        android:textSize="25dp"/>
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="0"
-        android:textColor="@color/colorPrimary"
-        android:layout_toLeftOf="@+id/tvTitleResult2"
-        android:layout_alignTop="@+id/tvTitleResult2"
-        android:id="@+id/tvResult01"
-        android:layout_alignParentRight="true"
-        android:textSize="25dp"/>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/tvTitleResult2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/result_02"
+            android:layout_below="@+id/tvQttTranfer"
+            android:textColor="@android:color/white"/>
 
 
 
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tvTitleResult2"
+            android:layout_alignTop="@+id/tvTitleResult2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="23dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:text="999"
+                android:gravity="center_horizontal"
+                android:textSize="30dp"
+                android:id="@+id/tvResult01"/>
 
+        </LinearLayout>
 
+    </RelativeLayout>
 
 </RelativeLayout>

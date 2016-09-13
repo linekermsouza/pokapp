@@ -45,8 +45,9 @@ public class MyNumberPicker extends LinearLayout implements View.OnClickListener
         if ( this.isInEditMode() )
             return;
 
-        this.findViewById(RM).setOnClickListener(this);
-        this.findViewById(ADD).setOnClickListener(this);
+        this.findViewById(RM).setOnTouchListener(new RepeatListener(400, 100, this));
+        this.findViewById(ADD).setOnTouchListener(new RepeatListener(400, 100, this));
+
         this.tvValue = (TextView) this.findViewById(R.id.tv_value);
         this.updateViewValue();
     }
