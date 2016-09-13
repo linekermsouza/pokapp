@@ -64,7 +64,7 @@ public class PokemonSyncCloud {
                             pokemon.setName(pokemonCloud.name);
                             dao.update(pokemon);
                             data = dataDao.queryBuilder().where(PokemonDataDao.Properties.PokemonNumber.eq(number)).uniqueOrThrow();
-                            data.setQtdCandy(pokemonCloud.candy);
+                            data.setQtdCandyEvolve(pokemonCloud.candy);
                             dataDao.update(data);
                         } catch (DaoException exception) {
                             if ( pokemonCloud.status == 0 ) {
@@ -77,8 +77,8 @@ public class PokemonSyncCloud {
                             data = new PokemonData();
                             data.setQtd(0);
                             data.setTransfer(0);
-                            data.setQtdCandyEvolve(0);
-                            data.setQtdCandy(pokemonCloud.candy);
+                            data.setQtdCandy(0);
+                            data.setQtdCandyEvolve(pokemonCloud.candy);
 
                             data.setPokemonNumber(number);
                             dataDao.save(data);

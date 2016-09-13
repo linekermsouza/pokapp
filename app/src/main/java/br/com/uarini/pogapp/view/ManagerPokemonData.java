@@ -19,10 +19,9 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     private Pokemon pokemon;
     private PokemonData pokemonData;
     private MyNumberPicker npQtd;
-    private MyNumberPicker npQtdCandyEvolve;
-    private MyNumberPicker npQtdTransfer;
+    private MyNumberPicker npQtdCandy;
 
-    private TextView tvQttCandyAfterTransfer, tvMaxQttOfEvolutions;
+    private TextView tvQttPokemon,  tvTransfer, tvMaxQttOfEvolutions;
 
     private TextView tvPkName;
 
@@ -54,31 +53,24 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     public void setupView(View view, boolean isFromDialog) {
         this.tvPkName = (TextView) view.findViewById(R.id.tvPokemon);
         this.tvPkName.setOnClickListener(this);
-        if ( isFromDialog ) {
-            this.setPokemonName();
-        } else {
-            this.tvPkName.setVisibility(View.GONE);
-        }
-        this.tvQttCandyAfterTransfer = (TextView) view.findViewById(R.id.tvResult01);
-        this.tvMaxQttOfEvolutions = (TextView) view.findViewById(R.id.tvResult02);
+        this.setPokemonName();
+        this.tvMaxQttOfEvolutions = (TextView) view.findViewById(R.id.tvResult01);
+        this.tvTransfer = (TextView) view.findViewById(R.id.tvResultTransfer);
+        this.tvQttPokemon = (TextView) view.findViewById(R.id.tvQttPokemon);
 
         this.npQtd = (MyNumberPicker) view.findViewById(R.id.npQtd);
-        this.npQtdCandyEvolve = (MyNumberPicker) view.findViewById(R.id.npQtdCandyEnvolve);
-        this.npQtdTransfer = (MyNumberPicker) view.findViewById(R.id.npQtdTransfer);
-        View btnBestEfficient = view.findViewById(R.id.btn_best_efficient);
-        btnBestEfficient.setOnClickListener(this);
+        this.npQtdCandy = (MyNumberPicker) view.findViewById(R.id.npQtdCandy);
 
         this.npQtd.init();
-        this.npQtdCandyEvolve.init();
-        this.npQtdTransfer.init();
+        this.npQtdCandy.init();
 
         this.npQtd.setValueListener(this);
-        this.npQtdTransfer.setValueListener(this);
-        this.npQtdCandyEvolve.setValueListener(this);
+        this.npQtdCandy.setValueListener(this);
 
         this.bindValues();
 
-        this.calcule();
+        this.calculeBestEfficient();
+        this.tvQttPokemon.setText("Qtd. de " + this.pokemon.getName() + ":");
     }
 
     private void setPokemonName() {
@@ -87,31 +79,23 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
 
     private void bindValues(){
         this.npQtd.setValue(this.pokemonData.getQtd());
-        this.npQtdCandyEvolve.setValue(this.pokemonData.getQtdCandyEvolve());
-        this.npQtdTransfer.setValue(this.pokemonData.getTransfer());
+        this.npQtdCandy.setValue(this.pokemonData.getQtdCandy());
     }
 
     @Override
     public boolean onValue(MyNumberPicker picker, int value) {
         if (picker.getId() == this.npQtd.getId() ){//Quantity of pokemons
             this.pokemonData.setQtd(value);
-        } else if (picker.getId() == this.npQtdCandyEvolve.getId() ){//TODO: retrieve from json
-            this.pokemonData.setQtdCandyEvolve(value);
-        } else if (picker.getId() == this.npQtdTransfer.getId() ){//Quantity to transfer
-            if (value <= this.pokemonData.getQtd() ) {
-                this.pokemonData.setTransfer(value);
-            }else{
-                return  false;
-            }
+        } else if (picker.getId() == this.npQtdCandy.getId() ){
+            this.pokemonData.setQtdCandy(value);
         }
-        this.calcule();
+        this.calculeBestEfficient();
 
         return true;
     }
 
     private void calcule(){
         final Integer qttCandyAfterTransfer = this.pokemonData.getTransfer() + this.pokemonData.getQtdCandy();
-        this.tvQttCandyAfterTransfer.setText(qttCandyAfterTransfer.toString());
 
         if ( this.pokemonData.getQtdCandyEvolve() == 0 ) {
             this.tvMaxQttOfEvolutions.setText("0");
@@ -141,8 +125,6 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
     public void onClick(View view) {
         if ( view.getId() == this.tvPkName.getId() ) {
             this.onClickPokemonNameListener.onClick(view);
-        } else if ( view.getId() == R.id.btn_best_efficient ){
-            this.calculeBestEfficient();
         }
     }
 
@@ -155,7 +137,8 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         this.loadPokemon(pkNumber);
         this.setPokemonName();
         this.bindValues();
-        this.calcule();
+        this.calculeBestEfficient();
+        this.tvQttPokemon.setText("Qtd. de " + this.pokemon.getName() + ":");
     }
 
     public void setOnClickPokemonName(View.OnClickListener onClickPokemonName) {
@@ -177,7 +160,7 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         }
 
         this.pokemonData.setTransfer(qttTransfer);
-        this.npQtdTransfer.setValue(this.pokemonData.getTransfer());
+        this.tvTransfer.setText(String.valueOf(this.pokemonData.getTransfer()));
         calcule();
 
     }
