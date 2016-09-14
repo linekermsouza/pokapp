@@ -11,5 +11,6 @@
     <string name="qtt_candy">Qtd. de Candy:</string>
     <string name="tranferir_antes">Transferir agora:</string>
     <string name="dontevolve">Esse pokemon não tem evolução</string>
+    <string name="notification_subtitle">Toque para calcular as evoluções</string>
 
 </resources>

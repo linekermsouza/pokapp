@@ -11,4 +11,5 @@
     <string name="type_pokemon_name">Type pokemon name here</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-4312492329462049/6254431412</string>
     <string name="dontevolve">This pokemon does not have a evolution</string>
+    <string name="notification_subtitle">Tap to calculate pokemon evolutions</string>
 </resources>

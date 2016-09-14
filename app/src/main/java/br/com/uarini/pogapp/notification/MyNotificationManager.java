@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
 import br.com.uarini.pogapp.PokemonNotificationActivity;
@@ -18,8 +19,10 @@ public class MyNotificationManager {
         final Intent resultIntent = new Intent(mContext, PokemonNotificationActivity.class);
         final NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(mContext)
-                        .setSmallIcon(R.drawable.ic_notification)
-                        .setContentTitle(mContext.getString(R.string.app_name));
+                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_notification))
+                        .setSmallIcon(R.drawable.ic_notification_small)
+                        .setContentTitle(mContext.getString(R.string.app_name))
+                        .setContentText(mContext.getString(R.string.notification_subtitle));
 
         final PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
