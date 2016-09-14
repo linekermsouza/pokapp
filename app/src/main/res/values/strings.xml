@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PokApp Calculator</string>
+    <string name="app_name">PokApp</string>
     <string name="best_efficient">Evolve calcule</string>
     <string name="pokemon_not_found_from_notification">Pokemon not found</string>
     <string name="qtt_candy">Qty. Candy:</string>
@@ -10,4 +10,5 @@
     <string name="tranferir_antes">Transfer now:</string>
     <string name="type_pokemon_name">Type pokemon name here</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-4312492329462049/6254431412</string>
+    <string name="dontevolve">This pokemon does not have a evolution</string>
 </resources>

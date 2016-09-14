@@ -60,6 +60,7 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
 
         this.npQtd = (MyNumberPicker) view.findViewById(R.id.npQtd);
         this.npQtdCandy = (MyNumberPicker) view.findViewById(R.id.npQtdCandy);
+        View dontEvolve = view.findViewById(R.id.tvDontEvolve);
 
         this.npQtd.init();
         this.npQtdCandy.init();
@@ -71,6 +72,11 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
 
         this.calculeBestEfficient();
         this.tvQttPokemon.setText( view.getContext().getString(R.string.qtt_pokemon, this.pokemon.getName()) );
+        if (this.pokemonData.getQtdCandyEvolve() == 0){
+            dontEvolve.setVisibility(View.VISIBLE);
+        }else{
+            dontEvolve.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setPokemonName() {
