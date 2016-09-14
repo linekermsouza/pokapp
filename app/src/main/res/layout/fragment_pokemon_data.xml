@@ -31,13 +31,20 @@
         android:layout_below="@+id/view_separator"
         android:layout_marginTop="5dp"
         android:paddingTop="15dp"
+        android:ellipsize="middle"
         android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
+        android:lines="1"
+        android:singleLine="true"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toLeftOf="@+id/np01"
         android:text="@string/qtt_pokemon"/>
 
     <LinearLayout
+        android:id="@+id/np01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/tvPokemon"
@@ -86,6 +93,7 @@
             android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/tranferir_antes" />
 
@@ -102,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white"
-                android:gravity="center_horizontal"
+                android:gravity="center_vertical|right"
                 android:text="999"
                 android:textSize="30dp"
                 android:id="@+id/tvResultTransfer"/>
@@ -115,6 +123,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/result_02"
+            android:gravity="center_vertical"
             android:layout_below="@+id/tvQttTranfer"
             android:textColor="@android:color/white"/>
 
@@ -134,7 +143,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white"
                 android:text="999"
-                android:gravity="center_horizontal"
+                android:gravity="center_vertical|right"
                 android:textSize="30dp"
                 android:id="@+id/tvResult01"/>
 

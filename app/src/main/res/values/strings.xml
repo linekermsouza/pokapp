@@ -1,16 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PokApp Calculator</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="pokemon_not_found_from_notification">Pokemon não encontrado.</string>
-    <string name="result_02">Evoluções possíveis:</string>
-    <string name="result01">Qtd candy após transferir:</string>
-    <string name="type_pokemon_name">Entre com o nome do Pokemon</string>
-    <string name="best_efficient">Calcular Evoluçoes</string>
-    <string name="qtt_pokemon">Qtd. de pokemon:</string>
-    <string name="qtt_candy">Qtd. de Candy:</string>
-    <string name="tranferir_antes">Transferir agora:</string>
-
-    <string name="banner_ad_unit_id">ca-app-pub-4312492329462049/6254431412</string>
+    <string name="best_efficient">Evolve calcule</string>
+    <string name="pokemon_not_found_from_notification">Pokemon not found</string>
+    <string name="qtt_candy">Qty. Candy:</string>
+    <string name="qtt_pokemon">Qty. %s:</string>
+    <string name="result01">Candy quantity after evolve:</string>
+    <string name="result_02">Possible  evolution:</string>
+    <string name="tranferir_antes">Transfer now:</string>
+    <string name="type_pokemon_name">Type pokemon name here</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-4312492329462049/6254431412</string>
 </resources>

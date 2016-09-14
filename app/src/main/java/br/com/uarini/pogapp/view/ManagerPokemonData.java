@@ -70,7 +70,7 @@ public class ManagerPokemonData implements MyNumberPicker.OnValueChangedListener
         this.bindValues();
 
         this.calculeBestEfficient();
-        this.tvQttPokemon.setText("Qtd. de " + this.pokemon.getName() + ":");
+        this.tvQttPokemon.setText( view.getContext().getString(R.string.qtt_pokemon, this.pokemon.getName()) );
     }
 
     private void setPokemonName() {
