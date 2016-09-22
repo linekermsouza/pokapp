@@ -15,6 +15,7 @@ import br.com.uarini.pogapp.fragment.ListPokemonFragment;
 import br.com.uarini.pogapp.fragment.PokemonDataBottomSheetDialogFragment;
 import br.com.uarini.pogapp.notification.MyNotificationManager;
 import br.com.uarini.pogapp.service.LoadPokemonService;
+import br.com.uarini.pogapp.service.ViewRemoteService;
 import br.com.uarini.pogapp.uitls.PokemonPreferences;
 import br.com.uarini.pogapp.view.ManagerPokemonData;
 
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements ListPokemonFragme
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-4312492329462049~3300965018");
 
         MyNotificationManager.pin(this);
+
+        this.startService(new Intent(this, ViewRemoteService.class));
+
         this.getSupportFragmentManager().beginTransaction().replace(R.id.content, new ListPokemonFragment()).commit();
 
         final AdView mAdView = (AdView) findViewById(R.id.adView);
